@@ -14,6 +14,13 @@
     <div id="screen-container">
         <div id="content-container">
             <h1>Tic Tac Toe</h1>
+            <div id="count-restart-container">
+                <div id="player-count">
+                    <span>X</span>
+                    <span>Turn</span>
+                </div>
+                <button id="#restart">Restart</button>
+            </div>
             <div id="gameboard">
                 <button class="field" data-indexNumber="0"></button>
                 <button class="field" data-indexNumber="1"></button>
@@ -24,6 +31,20 @@
                 <button class="field" data-indexNumber="6"></button>
                 <button class="field" data-indexNumber="7"></button>
                 <button class="field" data-indexNumber="8"></button>
+            </div>
+            <div id="status-container">
+                <div class="status" id="player-x">
+                    <p>PLAYER X</p>
+                    <p>0</p>
+                </div>
+                <div class="status" id="ties">
+                    <p>TIES</p>
+                    <p>0</p>
+                </div>
+                <div class="status" id="player-o">
+                    <p>PLAYER O</p>
+                    <p>0</p>
+                </div>
             </div>
         </div>
     </div>

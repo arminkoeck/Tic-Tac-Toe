@@ -2,8 +2,27 @@
 
 :root {
     font-family: "Rubik", sans-serif;
-    --main-color: rgb(136, 73, 109);
+    background-color: var(--main-color);
+    --main-color: rgb(68, 41, 54);
+    --second-color: rgb(136, 73, 109);
 }
+
+#restart {
+
+}
+
+#count-restart-container {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+#player-count {
+    color: white;
+    margin: 30px;
+    font-size: 40px;
+}
+
 
 #screen-container {
     display:flex;
@@ -23,11 +42,26 @@
     display: grid;
     aspect-ratio: 1 / 1;
     grid-template-columns: repeat(3, minmax(50px, 150px));
+    margin-bottom: 20px;
 }
 
 h1 {
     margin-top: 60px;
     margin-bottom: 40px;
     font-size: 5rem;
-    color: var(--main-color);
+    color: var(--second-color);
 }
+
+#status-container {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.status {
+    padding: 0px 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+};
