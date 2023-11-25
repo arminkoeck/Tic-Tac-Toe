@@ -1,13 +1,24 @@
 
 
+"use strict";
+
 const game = (function () {
     
 
     const createPlayer = function (playerName, playerSymbol) {
         const name = playerName;
         const symbol = playerSymbol;
+        let count = 0;
+
+        function getCount () {
+            return count;
+        }
+
+        function setCount () {
+            count++
+        }
     
-        return { name, symbol };
+        return { name, symbol, getCount, setCount };
     }
     
 
@@ -20,15 +31,65 @@ const game = (function () {
 
     const displayController = (function () {
         
+        const fields = document.querySelectorAll(".field");
+        const xCount = document.querySelector("#player-x-count");
+        const oCount = document.querySelector("#player-o-count");
+        const tieCount = document.querySelector("#tie-count");
+        const restart = document.querySelector("#restart");
+        const modal = document.querySelector("#modal");
+        const modalRestart = document.querySelector("#modal-restart");
+        const activePlayer = document.querySelector("#active-player");
+        const winnerMessage = document.querySelector("#winner-message")
+        
+
         function updateDisplay () {
+            //update gameboard
+            for (let i = 0; i < 9; i++) {
+                fields[i].textContent = gameboard.board[i];
+            };
 
+            //update winner message
+            activePlayer.textContent = gameController.getCurrentSymbol();
+            if (gameController.getWinner() !== "Tie") {
+                winnerMessage.textContent = "Player " + gameController.getWinner() + " has won!";
+            } else if (gameController.getWinner() === "Tie") {
+                winnerMessage.textContent = "It's a Tie";
+            }
+
+            //update counts
+            xCount.textContent = gameController.getCountX();
+            oCount.textContent = gameController.getCountO();
+            tieCount.textContent = gameController.getTies();
         };
 
-        function clickHandlerBoard () {
 
-        };
+        const clickHandlerBoard = (function () {
+            
+            fields.forEach((field) =>
+                field.addEventListener("click", (e) => {
+                    gameController.playRound(e.target.dataset.index);
+                    updateDisplay();
+                    if (gameController.getCurrentStatus() === true) {
+                        modal.showModal();
+                    };
+                })
+            );
 
-        return { updateDisplay, clickHandlerBoard }
+            restart.addEventListener("click", () => {
+                gameController.reset();
+                updateDisplay();
+            })
+
+            modalRestart.addEventListener("click", () => {
+                gameController.reset();
+                updateDisplay();
+                modal.close();
+            })
+
+        })();
+
+
+        return { updateDisplay, fields }
     })();
     
     
@@ -38,10 +99,24 @@ const game = (function () {
         let round = 1;
         let currentSymbol = PlayerX.symbol;
         let gameOver = false;
-    
+        let winner = "";
+        let ties = 0;
+
+        const getCurrentStatus = () => gameOver;
+        const getCurrentSymbol = () => currentSymbol;
+        const getWinner = () => winner;
+        const setTies = () => ties++;
+        const getTies = () => ties;
+        const getCountX = () => PlayerX.getCount();
+        const getCountO = () => PlayerO.getCount();
+        
 
         function checkTie () {
-            if (!gameboard.board.includes("")) {alert("It's a Tie!")};
+            if (!gameboard.board.includes("")) {
+                winner = "Tie"
+                setTies();
+                gameOver = true;
+            };
         };
 
 
@@ -62,21 +137,23 @@ const game = (function () {
                 let value2 = gameboard.board[winConditions[i][1]-1]
                 let value3 = gameboard.board[winConditions[i][2]-1]
                 if (value1 === PlayerX.symbol && value2 === PlayerX.symbol && value3 === PlayerX.symbol) {
-                    alert("Player X has won!")
                     gameOver = true;
+                    PlayerX.setCount()
+                    winner = currentSymbol;
                     currentSymbol = PlayerX.symbol;
                 } else if (value1 === PlayerO.symbol && value2 === PlayerO.symbol && value3 === PlayerO.symbol) {
-                    alert("Player O has won!")
                     gameOver = true;
+                    PlayerO.setCount()
+                    winner = currentSymbol;
                     currentSymbol = PlayerX.symbol;
                 };
-            };
+            }
 
             if (gameOver === false) {
                 checkTie();
-            }
+            };   
         };
-    
+        
             
         function playRound (field) {
             if (gameboard.board[field] === "" && gameOver === false && field <= 8 && field >= 0) {
@@ -93,12 +170,13 @@ const game = (function () {
             gameOver = false;
             round = 1;
             currentSymbol = PlayerX.symbol;
+            winner = "";
         }
        
 
-        return { playRound, reset };
+        return { playRound, reset, getCurrentStatus, getCurrentSymbol, getWinner, getTies, getCountX, getCountO };
     })();
-    return { gameController, gameboard }
+    return { gameController, gameboard, displayController }
 })();
 
 
