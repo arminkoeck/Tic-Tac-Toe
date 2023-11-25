@@ -53,7 +53,7 @@ const game = (function () {
             if (gameController.getWinner() !== "Tie") {
                 winnerMessage.textContent = "Player " + gameController.getWinner() + " has won!";
             } else if (gameController.getWinner() === "Tie") {
-                winnerMessage.textContent = "It's a Tie";
+                winnerMessage.textContent = "It's a Tie!";
             }
 
             //update counts
