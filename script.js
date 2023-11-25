@@ -2,6 +2,7 @@
 
 const game = (function () {
     
+
     const createPlayer = function (playerName, playerSymbol) {
         const name = playerName;
         const symbol = playerSymbol;
@@ -9,10 +10,25 @@ const game = (function () {
         return { name, symbol };
     }
     
-    const gameboard = (function createGameboard () {
+
+    const gameboard = (function () {
         let board = ["", "", "", "", "", "", "", "", ""];
         
         return { board }; 
+    })();
+
+
+    const displayController = (function () {
+        
+        function updateDisplay () {
+
+        };
+
+        function clickHandlerBoard () {
+
+        };
+
+        return { updateDisplay, clickHandlerBoard }
     })();
     
     
