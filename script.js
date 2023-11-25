@@ -104,60 +104,6 @@ const game = (function () {
 
 
 
-// const gameboard = (function createGameboard () {
-//     let board = ["", "", "", "", "", "", "", "", ""];
-
-//     const setField = function (field, currentSymbol) {
-//         if (board[field] === "") {
-//         board[field] = currentSymbol;
-//         };
-//     };
-
-//     const checkField = function (field) {
-//         return board[field] === "" ? true : false;
-//     }
-
-//     const reset = function () {
-//         board = ["", "", "", "", "", "", "", "", ""];
-//     }
-
-//     return { setField, checkField, reset, board }; 
-// })();
-
-
-// const game = (function createGameLogic () {
-//     const PlayerX = createPlayer ("Player X", "X");
-//     const PlayerO = createPlayer ("Player O", "O");
-//     let round = 1;
-//     let currentSymbol = PlayerX.symbol;
-
-    
-
-//     function checkWin () {
-//         return
-//     };
-
-//     function checkTie () {
-//         if (!gameboard.board.includes("")) {alert("It's a Tie!")};
-//     };
-
-        
-//     function playRound (field) {
-//         if (gameboard.checkField(field)) {
-//             gameboard.setField(field, currentSymbol)
-//             checkWin(); // if statement ob field sich ändert aber wie überprüfen?
-//             checkTie();
-//             round++
-//             round % 2 === 0 ? currentSymbol = PlayerO.symbol : PlayerX.symbol;
-//         };
-//     };
-   
-//     return { playRound };
-// })();
-
-
-
-
 
 
 
